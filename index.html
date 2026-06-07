@@ -129,7 +129,8 @@
             font-weight: 400;
         }
 
-        .show-toggle {
+        /* BUG 2 FIX: Increased specificity for show-toggle button */
+        .password-box .show-toggle {
             background: none;
             border: none;
             font-size: 1.3rem;
@@ -137,9 +138,11 @@
             padding: 0.5rem;
             color: #d4748c;
             transition: 0.2s;
+            width: auto !important;
+            min-width: unset !important;
         }
 
-        .show-toggle:hover {
+        .password-box .show-toggle:hover {
             transform: scale(1.1);
         }
 
@@ -397,7 +400,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // ============================================================
-    // ZAMAN'S REAL-TIME ROMANTIC CHAT - SUPABASE EDITION
+    // ZAMAN'S REAL-TIME ROMANTIC CHAT - SUPABASE EDITION (FIXED)
     // - Password stored in localStorage (default: "Zaman")
     // - Supabase real-time sync across all devices
     // - Falling hearts/leaves animation
@@ -407,7 +410,8 @@
     // ===== SUPABASE CONFIGURATION =====
     const SUPABASE_URL = "https://azkeqhuraapgqalltfhi.supabase.co";
     const SUPABASE_KEY = "sb_publishable_qMygHXF7A7jIEUEUNPzM4Q_n39KtCPv";
-   const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    // BUG 1 FIX: Create client reference - all calls will use sbClient
+    const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // ===== LOCALSTORAGE KEYS =====
     const PASSWORD_KEY = "zaman_chat_password";
@@ -493,9 +497,9 @@
     let realtimeChannel = null;
     let currentMessagesContainer = null;
 
-    // ===== SUPABASE MESSAGES OPERATIONS =====
+    // ===== SUPABASE MESSAGES OPERATIONS (FIXED: using sbClient) =====
     async function loadAllMessages() {
-        const { data, error } = await supabase
+        const { data, error } = await sbClient
             .from('messages')
             .select('*')
             .order('timestamp', { ascending: true });
@@ -508,7 +512,7 @@
     }
 
     async function sendMessageToSupabase(text, sender) {
-        const { error } = await supabase
+        const { error } = await sbClient
             .from('messages')
             .insert([{ text: text.trim(), sender: sender }]);
         
@@ -521,10 +525,10 @@
     }
 
     async function deleteAllMessages() {
-        const { error } = await supabase
+        const { error } = await sbClient
             .from('messages')
             .delete()
-            .neq('id', 0); // delete all rows
+            .neq('id', 0);
         
         if (error) {
             console.error("Delete error:", error);
@@ -656,7 +660,7 @@
             await refreshChatUI(messagesContainer);
         }
         
-        // Send message logic
+        // BUG 3 & 4 FIX: Send message - NO duplicate refresh, realtime handles it
         const sendMessageHandler = async () => {
             const text = msgInput.value.trim();
             if (!text) {
@@ -669,8 +673,7 @@
             if (success) {
                 msgInput.value = "";
                 msgInput.focus();
-                // Refresh will happen via realtime, but also manual for instant feel
-                await loadAndDisplayMessages();
+                // REMOVED: loadAndDisplayMessages() call - let realtime INSERT handle it
             }
         };
         
@@ -687,10 +690,10 @@
             }
         });
         
-        // Lock vault
+        // Lock vault (FIXED: using sbClient)
         lockButton.addEventListener("click", () => {
             if (realtimeChannel) {
-                supabase.removeChannel(realtimeChannel);
+                sbClient.removeChannel(realtimeChannel);
                 realtimeChannel = null;
             }
             setUnlocked(false);
@@ -710,12 +713,12 @@
         // Initial load
         await loadAndDisplayMessages();
         
-        // Setup Supabase Realtime subscription
+        // Setup Supabase Realtime subscription (FIXED: using sbClient)
         if (realtimeChannel) {
-            supabase.removeChannel(realtimeChannel);
+            sbClient.removeChannel(realtimeChannel);
         }
         
-        realtimeChannel = supabase
+        realtimeChannel = sbClient
             .channel('messages-realtime')
             .on(
                 'postgres_changes',
@@ -764,10 +767,10 @@
         renderLockScreen("");
     }
     
-    // Cleanup on page unload
+    // Cleanup on page unload (FIXED: using sbClient)
     window.addEventListener('beforeunload', () => {
         if (realtimeChannel) {
-            supabase.removeChannel(realtimeChannel);
+            sbClient.removeChannel(realtimeChannel);
         }
     });
 </script>
