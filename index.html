@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>💖 Secret Garden · Romantic Chat Vault</title>
+    <title>💖 Zaman's Secret Garden · Real-Time Romantic Chat</title>
     <style>
         * {
             margin: 0;
@@ -23,6 +23,7 @@
             overflow-x: hidden;
         }
 
+        /* Falling Hearts & Leaves Animation */
         .leaves-container {
             position: fixed;
             top: 0;
@@ -38,30 +39,35 @@
             position: absolute;
             top: -20px;
             pointer-events: none;
-            opacity: 0.7;
+            opacity: 0.8;
             animation: fall linear forwards;
             z-index: 1001;
             font-size: 1.8rem;
         }
 
         @keyframes fall {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.8; }
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0.9; }
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
         }
 
+        /* MAIN CARD */
         .app-container {
             width: 100%;
             max-width: 680px;
             background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
             border-radius: 3rem;
             box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5);
             overflow: hidden;
+            transition: all 0.2s ease;
             position: relative;
             z-index: 10;
         }
 
-        .screen { padding: 2rem 1.8rem; }
+        /* PASSWORD SCREEN */
+        .screen {
+            padding: 2rem 1.8rem;
+        }
 
         .lock-screen {
             background: rgba(255, 245, 250, 0.9);
@@ -90,7 +96,11 @@
             margin-bottom: 0.5rem;
         }
 
-        .lock-screen p { color: #a55c6e; margin-bottom: 1.8rem; font-weight: 500; }
+        .lock-screen p {
+            color: #a55c6e;
+            margin-bottom: 1.8rem;
+            font-weight: 500;
+        }
 
         .password-box {
             background: white;
@@ -99,7 +109,7 @@
             display: flex;
             align-items: center;
             border: 1px solid #f7bfcf;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
             margin-bottom: 1rem;
         }
 
@@ -114,7 +124,10 @@
             letter-spacing: 0.5px;
         }
 
-        .password-box input::placeholder { color: #e2b1bf; font-weight: 400; }
+        .password-box input::placeholder {
+            color: #e2b1bf;
+            font-weight: 400;
+        }
 
         .show-toggle {
             background: none;
@@ -123,6 +136,11 @@
             cursor: pointer;
             padding: 0.5rem;
             color: #d4748c;
+            transition: 0.2s;
+        }
+
+        .show-toggle:hover {
+            transform: scale(1.1);
         }
 
         button {
@@ -135,13 +153,14 @@
             color: white;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
         }
 
         button:hover {
             transform: scale(0.97);
             background: linear-gradient(98deg, #c94b6d, #dc7a8c);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .error-msg {
@@ -152,6 +171,7 @@
             min-height: 2rem;
         }
 
+        /* CHAT SCREEN */
         .chat-screen {
             display: flex;
             flex-direction: column;
@@ -172,11 +192,23 @@
             gap: 10px;
         }
 
-        .chat-header h3 { font-size: 1.3rem; font-weight: 600; color: #b13e5c; }
-        .chat-header h3 span { font-size: 1.2rem; }
+        .chat-header h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #b13e5c;
+        }
 
-        .logout-btn {
-            background: rgba(180,70,100,0.2);
+        .chat-header h3 span {
+            font-size: 1.2rem;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: rgba(180, 70, 100, 0.2);
             padding: 0.4rem 1rem;
             font-size: 0.8rem;
             font-weight: 600;
@@ -186,7 +218,11 @@
             border-radius: 40px;
         }
 
-        .logout-btn:hover { background: #e2a1b5; color: white; }
+        .action-btn:hover {
+            background: #e2a1b5;
+            color: white;
+            transform: scale(0.96);
+        }
 
         .who-selector {
             background: #fff0f5;
@@ -260,8 +296,8 @@
         }
 
         @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(8px);}
+            to { opacity: 1; transform: translateY(0);}
         }
 
         .message.me {
@@ -278,6 +314,7 @@
             border: 1px solid #ffccd9;
             align-self: flex-start;
             border-bottom-left-radius: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
 
         .message small {
@@ -288,8 +325,14 @@
             letter-spacing: 0.3px;
         }
 
-        .me small { text-align: right; color: #ffe2ea; }
-        .other small { color: #b97b8b; }
+        .me small {
+            text-align: right;
+            color: #ffe2ea;
+        }
+
+        .other small {
+            color: #b97b8b;
+        }
 
         .input-panel {
             background: white;
@@ -309,6 +352,7 @@
             font-size: 0.95rem;
             outline: none;
             background: #fffbfd;
+            transition: 0.2s;
         }
 
         .input-panel input:focus {
@@ -323,14 +367,17 @@
         }
 
         .clear-chat {
-            background: rgba(228,87,123,0.2);
+            background: rgba(228, 87, 123, 0.2);
             color: #b83b5e;
             width: auto;
             padding: 0.5rem 1rem;
             font-size: 0.75rem;
         }
 
-        .footer-actions { display: flex; gap: 0.5rem; }
+        .footer-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
 
         @media (max-width: 520px) {
             .input-panel { flex-direction: column; align-items: stretch; }
@@ -338,6 +385,8 @@
             .footer-actions { flex-direction: column; }
             .message { max-width: 90%; }
             .who-selector { flex-direction: column; align-items: stretch; }
+            .chat-header { flex-direction: column; align-items: stretch; }
+            .header-buttons { justify-content: flex-end; }
         }
     </style>
 </head>
@@ -345,137 +394,165 @@
 <div class="leaves-container" id="leavesContainer"></div>
 <div class="app-container" id="appRoot"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-    // ===== REAL-TIME ROMANTIC CHAT with BroadcastChannel (Works across tabs!) =====
-    
-    // Storage keys
-    const STORAGE_KEY = "romantic_chat_messages";
-    const PASSWORD_KEY = "romantic_vault_password";
-    const DEFAULT_PASSWORD = "cherish2026";
-    
-    // Broadcast channel for real-time sync across tabs
-    let broadcastChannel = null;
-    
-    // Leaves animation
+    // ============================================================
+    // ZAMAN'S REAL-TIME ROMANTIC CHAT - SUPABASE EDITION
+    // - Password stored in localStorage (default: "Zaman")
+    // - Supabase real-time sync across all devices
+    // - Falling hearts/leaves animation
+    // - Who Am I selector: "You" (right/pink) or "My Love" (left/white)
+    // ============================================================
+
+    // ===== SUPABASE CONFIGURATION =====
+    const SUPABASE_URL = "https://azkeqhuraapgqalltfhi.supabase.co";
+    const SUPABASE_KEY = "sb_publishable_qMygHXF7A7jIEUEUNPzM4Q_n39KtCPv";
+   const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    // ===== LOCALSTORAGE KEYS =====
+    const PASSWORD_KEY = "zaman_chat_password";
+    const DEFAULT_PASSWORD = "Zaman";
+
+    // Initialize default password if not exists
+    if (!localStorage.getItem(PASSWORD_KEY)) {
+        localStorage.setItem(PASSWORD_KEY, DEFAULT_PASSWORD);
+    }
+
+    // ===== LEAVES & HEARTS ANIMATION =====
     let leafInterval = null;
-    const leafEmojis = ['🍂', '🍁', '🌸', '🌺', '💕', '💖', '🌹', '🍃', '✨', '💗'];
-    
-    function createLeaf() {
+    const floatingEmojis = ['😍', '♥', '🧡', '❤', '💕', '💖', '🌸', '🌹', '🍂', '🍁'];
+
+    function createFloatingEmoji() {
         const container = document.getElementById('leavesContainer');
         if (!container) return;
-        const leaf = document.createElement('div');
-        leaf.className = 'leaf';
-        leaf.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
-        leaf.style.left = (Math.random() * 100) + '%';
-        const dur = 6 + Math.random() * 9;
+        const el = document.createElement('div');
+        el.className = 'leaf';
+        el.textContent = floatingEmojis[Math.floor(Math.random() * floatingEmojis.length)];
+        el.style.left = (Math.random() * 100) + '%';
+        const duration = 6 + Math.random() * 10;
         const delay = Math.random() * 5;
-        leaf.style.animationDuration = dur + 's';
-        leaf.style.animationDelay = delay + 's';
-        leaf.style.fontSize = (1.2 + Math.random() * 1.2) + 'rem';
-        leaf.style.opacity = 0.4 + Math.random() * 0.5;
-        container.appendChild(leaf);
-        setTimeout(() => leaf.remove(), (dur + delay) * 1000);
+        el.style.animationDuration = duration + 's';
+        el.style.animationDelay = delay + 's';
+        el.style.fontSize = (1.2 + Math.random() * 1.3) + 'rem';
+        el.style.opacity = 0.5 + Math.random() * 0.4;
+        container.appendChild(el);
+        setTimeout(() => el.remove(), (duration + delay) * 1000);
     }
-    
-    function startLeaves() {
+
+    function startFloatingAnimation() {
         if (leafInterval) clearInterval(leafInterval);
-        for (let i = 0; i < 8; i++) setTimeout(() => createLeaf(), i * 300);
-        leafInterval = setInterval(createLeaf, 1800);
+        for (let i = 0; i < 10; i++) setTimeout(() => createFloatingEmoji(), i * 250);
+        leafInterval = setInterval(createFloatingEmoji, 1600);
     }
-    
-    // Message storage
-    function loadMessages() {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return [];
-        try {
-            const msgs = JSON.parse(raw);
-            return Array.isArray(msgs) ? msgs : [];
-        } catch(e) { return []; }
-    }
-    
-    function saveMessages(messages) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-        // Broadcast to other tabs
-        if (broadcastChannel) {
-            broadcastChannel.postMessage({ type: 'UPDATE', timestamp: Date.now() });
-        }
-    }
-    
-    function addMessage(text, sender) {
-        if (!text || text.trim() === "") return false;
-        const messages = loadMessages();
-        const newMsg = {
-            id: Date.now() + Math.random() * 10000,
-            text: text.trim(),
-            sender: sender,
-            timestamp: new Date().toISOString(),
-            timeStr: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        };
-        messages.push(newMsg);
-        saveMessages(messages);
-        return true;
-    }
-    
-    function clearAllMessages() {
-        saveMessages([]);
-    }
-    
-    // Password system
-    function getStoredPassword() {
-        const pwd = localStorage.getItem(PASSWORD_KEY);
-        if (pwd === null) {
-            localStorage.setItem(PASSWORD_KEY, DEFAULT_PASSWORD);
-            return DEFAULT_PASSWORD;
-        }
-        return pwd;
-    }
-    
+
+    // ===== PASSWORD HELPERS =====
     function verifyPassword(entered) {
-        return entered === getStoredPassword();
+        return entered === localStorage.getItem(PASSWORD_KEY);
     }
-    
-    function isSessionUnlocked() {
+
+    function isUnlocked() {
         return sessionStorage.getItem("romantic_unlocked") === "true";
     }
-    
-    function setSessionUnlocked(flag) {
+
+    function setUnlocked(flag) {
         if (flag) sessionStorage.setItem("romantic_unlocked", "true");
         else sessionStorage.removeItem("romantic_unlocked");
     }
-    
+
     function changePassword(newPwd) {
-        if (!newPwd || newPwd.trim().length < 4) {
-            alert("💕 Password must be at least 4 romantic characters.");
+        if (!newPwd || newPwd.trim().length < 3) {
+            alert("💕 Password must be at least 3 characters.");
             return false;
         }
         localStorage.setItem(PASSWORD_KEY, newPwd.trim());
-        alert("✨ New secret password saved!");
+        alert("✨ Password changed successfully! Next time use the new key ✨");
         return true;
     }
-    
+
+    // ===== RENDER HELPERS =====
     function escapeHtml(str) {
-        return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
+        return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
     }
-    
-    function msgHTML(msg) {
-        const timeDisplay = msg.timeStr || new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    function formatTime(isoString) {
+        if (!isoString) return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    // Message HTML builder
+    function buildMessageHTML(msg) {
         const isMe = msg.sender === 'me';
+        const timeStr = formatTime(msg.timestamp);
         return `<div class="message ${isMe ? 'me' : 'other'}">
             ${escapeHtml(msg.text)}
-            <small>${timeDisplay} ${isMe ? '💗 you' : '💖 my love'}</small>
+            <small>${timeStr} ${isMe ? '💗 you' : '💖 my love'}</small>
         </div>`;
     }
-    
-    const rootEl = document.getElementById("appRoot");
-    let currentRefreshCallback = null;
-    
-    // Lock Screen
+
+    const root = document.getElementById("appRoot");
+    let realtimeChannel = null;
+    let currentMessagesContainer = null;
+
+    // ===== SUPABASE MESSAGES OPERATIONS =====
+    async function loadAllMessages() {
+        const { data, error } = await supabase
+            .from('messages')
+            .select('*')
+            .order('timestamp', { ascending: true });
+        
+        if (error) {
+            console.error("Error loading messages:", error);
+            return [];
+        }
+        return data || [];
+    }
+
+    async function sendMessageToSupabase(text, sender) {
+        const { error } = await supabase
+            .from('messages')
+            .insert([{ text: text.trim(), sender: sender }]);
+        
+        if (error) {
+            console.error("Send error:", error);
+            alert("❌ Failed to send message. Check console.");
+            return false;
+        }
+        return true;
+    }
+
+    async function deleteAllMessages() {
+        const { error } = await supabase
+            .from('messages')
+            .delete()
+            .neq('id', 0); // delete all rows
+        
+        if (error) {
+            console.error("Delete error:", error);
+            alert("❌ Failed to clear messages.");
+            return false;
+        }
+        return true;
+    }
+
+    // Refresh UI with messages
+    async function refreshChatUI(container) {
+        if (!container) return;
+        const messages = await loadAllMessages();
+        if (messages.length === 0) {
+            container.innerHTML = `<div style="text-align:center; padding: 2rem; color:#cb7a8f;">✨ No sweet words yet... write something romantic ✨</div>`;
+        } else {
+            container.innerHTML = messages.map(msg => buildMessageHTML(msg)).join('');
+        }
+        container.scrollTop = container.scrollHeight;
+    }
+
+    // ===== LOCK SCREEN (Fixed UI) =====
     function renderLockScreen(errorMsg = "") {
-        startLeaves();
-        rootEl.innerHTML = `
+        startFloatingAnimation();
+        root.innerHTML = `
             <div class="screen lock-screen">
                 <div class="romantic-icon">🔐💌🌹🍂</div>
-                <h2>Secret Love Garden</h2>
+                <h2>Zaman's Secret Garden</h2>
                 <p>Enter the romantic password to unlock our whispers</p>
                 <div class="password-box">
                     <input type="password" id="pwdInput" placeholder="✦ your secret key ✦" autocomplete="off">
@@ -483,7 +560,7 @@
                 </div>
                 <button id="unlockBtn">Unlock the heart ❤️</button>
                 <div class="error-msg" id="lockError">${errorMsg}</div>
-                <p style="margin-top: 1.2rem; font-size: 0.75rem; color:#bc8f9b;">💕 password: cherish2026</p>
+                <p style="margin-top: 1.2rem; font-size: 0.75rem; color:#bc8f9b;">💕 Default password: Zaman (case-sensitive)</p>
             </div>
         `;
         
@@ -493,7 +570,7 @@
         
         const attemptUnlock = () => {
             if (verifyPassword(pwdInput.value)) {
-                setSessionUnlocked(true);
+                setUnlocked(true);
                 renderChatScreen();
             } else {
                 const errDiv = document.getElementById("lockError");
@@ -514,164 +591,185 @@
         });
         pwdInput.focus();
     }
-    
-    // Chat Screen with REAL-TIME BroadcastChannel
-    function renderChatScreen() {
-        startLeaves();
+
+    // ===== MAIN CHAT SCREEN =====
+    async function renderChatScreen() {
+        startFloatingAnimation();
         
-        // Setup broadcast channel for real-time sync
-        if (broadcastChannel) {
-            try { broadcastChannel.close(); } catch(e) {}
-        }
-        broadcastChannel = new BroadcastChannel('romantic_chat_sync');
-        broadcastChannel.onmessage = (event) => {
-            if (event.data.type === 'UPDATE') {
-                // Refresh messages when another tab updates
-                if (currentRefreshCallback) currentRefreshCallback();
-            }
-        };
-        
+        // Get stored "who am I" preference
         const savedWho = sessionStorage.getItem("romantic_who") || "me";
         
-        rootEl.innerHTML = `
+        root.innerHTML = `
             <div class="chat-screen">
                 <div class="chat-header">
-                    <h3>🌙 Whisper & Petals <span>🍂🍁</span></h3>
-                    <div style="display: flex; gap: 8px;">
-                        <button id="changePwdBtn" class="logout-btn" style="background:#ffe0e8;">🔐 New Key</button>
-                        <button id="logoutBtn" class="logout-btn">🔒 Lock Vault</button>
+                    <h3>🌙 Zaman's Whisper Garden <span>🍂🍁</span></h3>
+                    <div class="header-buttons">
+                        <button id="changePwdBtn" class="action-btn">🔐 New Key</button>
+                        <button id="lockVaultBtn" class="action-btn">🔒 Lock Vault</button>
                     </div>
                 </div>
                 <div class="who-selector">
                     <div class="status-badge">
                         <span class="status-dot"></span>
-                        <span>✨ Real-time · Live Sync</span>
+                        <span>✨ Live Realtime · Connected</span>
                     </div>
                     <div style="display: flex; gap: 1rem;">
-                        <label><input type="radio" name="who" value="me" ${savedWho === 'me' ? 'checked' : ''}> 💗 Send as You</label>
-                        <label><input type="radio" name="who" value="other" ${savedWho === 'other' ? 'checked' : ''}> 💖 Send as Lover</label>
+                        <label><input type="radio" name="who" value="me" ${savedWho === 'me' ? 'checked' : ''}> 💗 I am You</label>
+                        <label><input type="radio" name="who" value="other" ${savedWho === 'other' ? 'checked' : ''}> 💖 I am My Love</label>
                     </div>
                 </div>
-                <div class="messages-area" id="chatMessagesContainer">
+                <div class="messages-area" id="messagesContainer">
                     <div style="text-align:center; padding: 2rem; color:#cb7a8f;">✨ Loading romantic whispers... ✨</div>
                 </div>
                 <div class="input-panel">
-                    <input type="text" id="msgInput" placeholder="✍️ Write your romantic note..." autocomplete="off">
-                    <button id="sendBtnMe">💌 Send</button>
+                    <input type="text" id="messageInput" placeholder="✍️ Write your romantic note..." autocomplete="off">
+                    <button id="sendBtn">💌 Send</button>
                     <div class="footer-actions">
                         <button id="clearChatBtn" class="clear-chat">🗑️ Clear all memories</button>
                     </div>
                 </div>
                 <div style="font-size:0.7rem; text-align:center; padding:8px; background:#fff0f5; color:#b4687e;">
-                    💕 Real-time across all devices/tabs — every word blooms instantly.
+                    💕 Real-time across all devices — every word blooms instantly.
                 </div>
             </div>
         `;
         
-        const messagesContainer = document.getElementById("chatMessagesContainer");
-        const msgInput = document.getElementById("msgInput");
-        const sendBtn = document.getElementById("sendBtnMe");
-        const clearBtn = document.getElementById("clearChatBtn");
-        const logoutBtn = document.getElementById("logoutBtn");
-        const changePwdBtn = document.getElementById("changePwdBtn");
+        const messagesContainer = document.getElementById("messagesContainer");
+        const msgInput = document.getElementById("messageInput");
+        const sendButton = document.getElementById("sendBtn");
+        const clearButton = document.getElementById("clearChatBtn");
+        const lockButton = document.getElementById("lockVaultBtn");
+        const changePwdButton = document.getElementById("changePwdBtn");
         
-        // Save who am I
-        document.querySelectorAll('input[name="who"]').forEach(radio => {
+        // Save who am I on change
+        const radioButtons = document.querySelectorAll('input[name="who"]');
+        radioButtons.forEach(radio => {
             radio.addEventListener('change', (e) => {
-                if (e.target.checked) sessionStorage.setItem("romantic_who", e.target.value);
+                if (e.target.checked) {
+                    sessionStorage.setItem("romantic_who", e.target.value);
+                }
             });
         });
         
-        // Refresh display function
-        const refreshMessages = () => {
-            const messages = loadMessages();
-            if (!messagesContainer) return;
-            
-            if (messages.length === 0) {
-                messagesContainer.innerHTML = `<div style="text-align:center; padding: 2rem; color:#cb7a8f;">✨ No sweet words yet... write something romantic ✨</div>`;
-                return;
-            }
-            
-            messagesContainer.innerHTML = messages.map(msg => msgHTML(msg)).join('');
-            messagesContainer.scrollTop = messagesContainer.scrollHeight;
-        };
+        // Load messages and setup realtime subscription
+        async function loadAndDisplayMessages() {
+            await refreshChatUI(messagesContainer);
+        }
         
-        // Store callback for real-time updates
-        currentRefreshCallback = refreshMessages;
-        
-        // Send message
-        const sendMessage = () => {
-            const rawText = msgInput.value;
-            if (!rawText.trim()) {
+        // Send message logic
+        const sendMessageHandler = async () => {
+            const text = msgInput.value.trim();
+            if (!text) {
                 msgInput.style.transform = "translateX(4px)";
                 setTimeout(() => { if(msgInput) msgInput.style.transform = ""; }, 150);
                 return;
             }
-            
-            const whoValue = document.querySelector('input[name="who"]:checked')?.value || "me";
-            addMessage(rawText, whoValue);
-            msgInput.value = "";
-            refreshMessages();
-            msgInput.focus();
+            const selectedWho = document.querySelector('input[name="who"]:checked')?.value || "me";
+            const success = await sendMessageToSupabase(text, selectedWho);
+            if (success) {
+                msgInput.value = "";
+                msgInput.focus();
+                // Refresh will happen via realtime, but also manual for instant feel
+                await loadAndDisplayMessages();
+            }
         };
         
-        sendBtn.addEventListener("click", sendMessage);
-        msgInput.addEventListener("keypress", (e) => e.key === "Enter" && sendMessage());
+        sendButton.addEventListener("click", sendMessageHandler);
+        msgInput.addEventListener("keypress", (e) => {
+            if (e.key === "Enter") sendMessageHandler();
+        });
         
-        clearBtn.addEventListener("click", () => {
-            if (confirm("💔 Clear ALL romantic messages? This cannot be undone.")) {
-                clearAllMessages();
-                refreshMessages();
+        // Clear all messages
+        clearButton.addEventListener("click", async () => {
+            if (confirm("💔 Clear ALL romantic messages? This cannot be undone. Love stays in hearts forever.")) {
+                await deleteAllMessages();
+                await loadAndDisplayMessages();
             }
         });
         
-        logoutBtn.addEventListener("click", () => {
-            if (broadcastChannel) {
-                broadcastChannel.close();
-                broadcastChannel = null;
+        // Lock vault
+        lockButton.addEventListener("click", () => {
+            if (realtimeChannel) {
+                supabase.removeChannel(realtimeChannel);
+                realtimeChannel = null;
             }
-            setSessionUnlocked(false);
+            setUnlocked(false);
             renderLockScreen("");
         });
         
-        changePwdBtn.addEventListener("click", () => {
-            let newPwd = prompt("💖 New password (min 4 chars):");
-            if (newPwd && newPwd.trim().length >= 4) {
+        // Change password (New Key)
+        changePwdButton.addEventListener("click", () => {
+            let newPwd = prompt("💖 Set new secret password (min 3 characters):\n(Keep it romantic & memorable)");
+            if (newPwd && newPwd.trim().length >= 3) {
                 changePassword(newPwd.trim());
             } else if (newPwd !== null) {
-                alert("💕 Password must be at least 4 characters.");
+                alert("💕 Password must be at least 3 characters.");
             }
         });
         
         // Initial load
-        refreshMessages();
+        await loadAndDisplayMessages();
         
-        // Polling fallback for older browsers (every 2 seconds as backup)
-        const pollingInterval = setInterval(() => {
-            if (messagesContainer && document.body.contains(messagesContainer)) {
-                refreshMessages();
-            } else {
-                clearInterval(pollingInterval);
-            }
-        }, 2000);
+        // Setup Supabase Realtime subscription
+        if (realtimeChannel) {
+            supabase.removeChannel(realtimeChannel);
+        }
         
-        // Store interval for cleanup
-        window.currentPolling = pollingInterval;
+        realtimeChannel = supabase
+            .channel('messages-realtime')
+            .on(
+                'postgres_changes',
+                { event: 'INSERT', schema: 'public', table: 'messages' },
+                async (payload) => {
+                    // Append new message dynamically
+                    if (messagesContainer) {
+                        const newMsg = payload.new;
+                        // Remove "no messages" placeholder if present
+                        const emptyDiv = messagesContainer.querySelector('div[style*="text-align:center"]');
+                        if (emptyDiv && emptyDiv.innerText.includes("No sweet words")) {
+                            messagesContainer.innerHTML = '';
+                        }
+                        messagesContainer.insertAdjacentHTML('beforeend', buildMessageHTML(newMsg));
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    }
+                }
+            )
+            .on(
+                'postgres_changes',
+                { event: 'DELETE', schema: 'public', table: 'messages' },
+                async () => {
+                    // Full refresh on delete
+                    await loadAndDisplayMessages();
+                }
+            )
+            .subscribe((status) => {
+                console.log("Realtime subscription status:", status);
+                // Update status dot color based on connection
+                const badge = document.querySelector('.status-badge');
+                if (badge) {
+                    if (status === 'SUBSCRIBED') {
+                        badge.style.background = "rgba(74, 222, 128, 0.2)";
+                    } else {
+                        badge.style.background = "rgba(255, 100, 100, 0.2)";
+                    }
+                }
+            });
     }
-    
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-        if (broadcastChannel) broadcastChannel.close();
-        if (window.currentPolling) clearInterval(window.currentPolling);
-    });
-    
-    // Start app
-    startLeaves();
-    if (isSessionUnlocked()) {
+
+    // ===== INITIALIZATION =====
+    startFloatingAnimation();
+    if (isUnlocked()) {
         renderChatScreen();
     } else {
         renderLockScreen("");
     }
+    
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (realtimeChannel) {
+            supabase.removeChannel(realtimeChannel);
+        }
+    });
 </script>
 </body>
 </html>
