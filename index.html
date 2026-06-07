@@ -129,7 +129,6 @@
             font-weight: 400;
         }
 
-        /* BUG 2 FIX: Increased specificity for show-toggle button */
         .password-box .show-toggle {
             background: none;
             border: none;
@@ -199,6 +198,9 @@
             font-size: 1.4rem;
             font-weight: 600;
             color: #b13e5c;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .chat-header h3 span {
@@ -227,34 +229,6 @@
             transform: scale(0.96);
         }
 
-        .who-selector {
-            background: #fff0f5;
-            padding: 0.6rem 1.2rem;
-            border-bottom: 1px solid #ffdae3;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            font-size: 0.82rem;
-            color: #a55c6e;
-            font-weight: 600;
-        }
-
-        .who-selector label {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            cursor: pointer;
-        }
-
-        .who-selector input[type="radio"] {
-            accent-color: #e4577b;
-            width: auto;
-            margin: 0;
-            cursor: pointer;
-        }
-
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -263,6 +237,7 @@
             padding: 4px 10px;
             border-radius: 30px;
             font-size: 0.7rem;
+            font-weight: normal;
         }
 
         .status-dot {
@@ -278,6 +253,8 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
+
+        /* Removed .who-selector and related styles */
 
         .messages-area {
             flex: 1;
@@ -387,7 +364,6 @@
             .input-panel button { width: 100%; }
             .footer-actions { flex-direction: column; }
             .message { max-width: 90%; }
-            .who-selector { flex-direction: column; align-items: stretch; }
             .chat-header { flex-direction: column; align-items: stretch; }
             .header-buttons { justify-content: flex-end; }
         }
@@ -400,17 +376,15 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
     // ============================================================
-    // ZAMAN'S REAL-TIME ROMANTIC CHAT - SUPABASE EDITION (FIXED)
-    // - Password stored in localStorage (default: "Zaman")
-    // - Supabase real-time sync across all devices
-    // - Falling hearts/leaves animation
-    // - Who Am I selector: "You" (right/pink) or "My Love" (left/white)
+    // ZAMAN'S REAL-TIME ROMANTIC CHAT - SUPABASE EDITION
+    // ============================================================
+    // NOTE: In Supabase dashboard → Table Editor → messages table
+    // → Realtime must be ENABLED for live sync to work
     // ============================================================
 
     // ===== SUPABASE CONFIGURATION =====
     const SUPABASE_URL = "https://azkeqhuraapgqalltfhi.supabase.co";
     const SUPABASE_KEY = "sb_publishable_qMygHXF7A7jIEUEUNPzM4Q_n39KtCPv";
-    // BUG 1 FIX: Create client reference - all calls will use sbClient
     const sbClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // ===== LOCALSTORAGE KEYS =====
@@ -483,7 +457,6 @@
         return new Date(isoString).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     }
 
-    // Message HTML builder
     function buildMessageHTML(msg) {
         const isMe = msg.sender === 'me';
         const timeStr = formatTime(msg.timestamp);
@@ -495,9 +468,8 @@
 
     const root = document.getElementById("appRoot");
     let realtimeChannel = null;
-    let currentMessagesContainer = null;
 
-    // ===== SUPABASE MESSAGES OPERATIONS (FIXED: using sbClient) =====
+    // ===== SUPABASE MESSAGES OPERATIONS =====
     async function loadAllMessages() {
         const { data, error } = await sbClient
             .from('messages')
@@ -538,8 +510,9 @@
         return true;
     }
 
-    // Refresh UI with messages
-    async function refreshChatUI(container) {
+    // FIX 1: Always query DOM fresh inside refreshChatUI
+    async function refreshChatUI() {
+        const container = document.getElementById("messagesContainer");
         if (!container) return;
         const messages = await loadAllMessages();
         if (messages.length === 0) {
@@ -550,7 +523,7 @@
         container.scrollTop = container.scrollHeight;
     }
 
-    // ===== LOCK SCREEN (Fixed UI) =====
+    // ===== LOCK SCREEN =====
     function renderLockScreen(errorMsg = "") {
         startFloatingAnimation();
         root.innerHTML = `
@@ -600,26 +573,20 @@
     async function renderChatScreen() {
         startFloatingAnimation();
         
-        // Get stored "who am I" preference
-        const savedWho = sessionStorage.getItem("romantic_who") || "me";
-        
+        // FIX 2: Removed who-selector block. Status badge moved into header.
         root.innerHTML = `
             <div class="chat-screen">
                 <div class="chat-header">
-                    <h3>🌙 Zaman's Whisper Garden <span>🍂🍁</span></h3>
+                    <h3>
+                        🌙 Zaman's Whisper Garden <span>🍂🍁</span>
+                        <span class="status-badge">
+                            <span class="status-dot"></span>
+                            <span>✨ Live Realtime · Connected</span>
+                        </span>
+                    </h3>
                     <div class="header-buttons">
                         <button id="changePwdBtn" class="action-btn">🔐 New Key</button>
                         <button id="lockVaultBtn" class="action-btn">🔒 Lock Vault</button>
-                    </div>
-                </div>
-                <div class="who-selector">
-                    <div class="status-badge">
-                        <span class="status-dot"></span>
-                        <span>✨ Live Realtime · Connected</span>
-                    </div>
-                    <div style="display: flex; gap: 1rem;">
-                        <label><input type="radio" name="who" value="me" ${savedWho === 'me' ? 'checked' : ''}> 💗 I am You</label>
-                        <label><input type="radio" name="who" value="other" ${savedWho === 'other' ? 'checked' : ''}> 💖 I am My Love</label>
                     </div>
                 </div>
                 <div class="messages-area" id="messagesContainer">
@@ -638,29 +605,13 @@
             </div>
         `;
         
-        const messagesContainer = document.getElementById("messagesContainer");
         const msgInput = document.getElementById("messageInput");
         const sendButton = document.getElementById("sendBtn");
         const clearButton = document.getElementById("clearChatBtn");
         const lockButton = document.getElementById("lockVaultBtn");
         const changePwdButton = document.getElementById("changePwdBtn");
         
-        // Save who am I on change
-        const radioButtons = document.querySelectorAll('input[name="who"]');
-        radioButtons.forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    sessionStorage.setItem("romantic_who", e.target.value);
-                }
-            });
-        });
-        
-        // Load messages and setup realtime subscription
-        async function loadAndDisplayMessages() {
-            await refreshChatUI(messagesContainer);
-        }
-        
-        // BUG 3 & 4 FIX: Send message - NO duplicate refresh, realtime handles it
+        // Send message handler: hardcoded sender = "me"
         const sendMessageHandler = async () => {
             const text = msgInput.value.trim();
             if (!text) {
@@ -668,12 +619,12 @@
                 setTimeout(() => { if(msgInput) msgInput.style.transform = ""; }, 150);
                 return;
             }
-            const selectedWho = document.querySelector('input[name="who"]:checked')?.value || "me";
-            const success = await sendMessageToSupabase(text, selectedWho);
+            // FIX 2: Always send as "me" (no radio buttons)
+            const success = await sendMessageToSupabase(text, "me");
             if (success) {
                 msgInput.value = "";
                 msgInput.focus();
-                // REMOVED: loadAndDisplayMessages() call - let realtime INSERT handle it
+                // No manual refresh - realtime INSERT will add message
             }
         };
         
@@ -686,11 +637,11 @@
         clearButton.addEventListener("click", async () => {
             if (confirm("💔 Clear ALL romantic messages? This cannot be undone. Love stays in hearts forever.")) {
                 await deleteAllMessages();
-                await loadAndDisplayMessages();
+                await refreshChatUI();
             }
         });
         
-        // Lock vault (FIXED: using sbClient)
+        // Lock vault
         lockButton.addEventListener("click", () => {
             if (realtimeChannel) {
                 sbClient.removeChannel(realtimeChannel);
@@ -711,43 +662,44 @@
         });
         
         // Initial load
-        await loadAndDisplayMessages();
+        await refreshChatUI();
         
-        // Setup Supabase Realtime subscription (FIXED: using sbClient)
+        // Setup realtime subscription
         if (realtimeChannel) {
             sbClient.removeChannel(realtimeChannel);
         }
         
+        // FIX 1: In callbacks, always re-query DOM elements
         realtimeChannel = sbClient
             .channel('messages-realtime')
             .on(
                 'postgres_changes',
                 { event: 'INSERT', schema: 'public', table: 'messages' },
                 async (payload) => {
-                    // Append new message dynamically
-                    if (messagesContainer) {
-                        const newMsg = payload.new;
-                        // Remove "no messages" placeholder if present
-                        const emptyDiv = messagesContainer.querySelector('div[style*="text-align:center"]');
-                        if (emptyDiv && emptyDiv.innerText.includes("No sweet words")) {
-                            messagesContainer.innerHTML = '';
-                        }
-                        messagesContainer.insertAdjacentHTML('beforeend', buildMessageHTML(newMsg));
-                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                    const container = document.getElementById("messagesContainer");
+                    if (!container) return;
+                    // Remove placeholder if present
+                    const emptyDiv = container.querySelector('div[style*="text-align:center"]');
+                    if (emptyDiv && emptyDiv.innerText.includes("No sweet words")) {
+                        container.innerHTML = '';
                     }
+                    container.insertAdjacentHTML('beforeend', buildMessageHTML(payload.new));
+                    container.scrollTop = container.scrollHeight;
                 }
             )
             .on(
                 'postgres_changes',
                 { event: 'DELETE', schema: 'public', table: 'messages' },
                 async () => {
-                    // Full refresh on delete
-                    await loadAndDisplayMessages();
+                    // Full refresh on delete - re-query container
+                    const container = document.getElementById("messagesContainer");
+                    if (container) {
+                        await refreshChatUI(); // refreshChatUI uses its own getElementById
+                    }
                 }
             )
             .subscribe((status) => {
                 console.log("Realtime subscription status:", status);
-                // Update status dot color based on connection
                 const badge = document.querySelector('.status-badge');
                 if (badge) {
                     if (status === 'SUBSCRIBED') {
@@ -767,7 +719,6 @@
         renderLockScreen("");
     }
     
-    // Cleanup on page unload (FIXED: using sbClient)
     window.addEventListener('beforeunload', () => {
         if (realtimeChannel) {
             sbClient.removeChannel(realtimeChannel);
