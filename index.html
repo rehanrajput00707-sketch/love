@@ -23,7 +23,6 @@
             overflow-x: hidden;
         }
 
-        /* Falling Leaves Animation */
         .leaves-container {
             position: fixed;
             top: 0;
@@ -50,7 +49,6 @@
             100% { transform: translateY(110vh) rotate(360deg); opacity: 0.2; }
         }
 
-        /* MAIN CARD */
         .app-container {
             width: 100%;
             max-width: 680px;
@@ -59,15 +57,11 @@
             border-radius: 3rem;
             box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5);
             overflow: hidden;
-            transition: all 0.2s ease;
             position: relative;
             z-index: 10;
         }
 
-        /* PASSWORD SCREEN */
-        .screen {
-            padding: 2rem 1.8rem;
-        }
+        .screen { padding: 2rem 1.8rem; }
 
         .lock-screen {
             background: rgba(255, 245, 250, 0.9);
@@ -96,11 +90,7 @@
             margin-bottom: 0.5rem;
         }
 
-        .lock-screen p {
-            color: #a55c6e;
-            margin-bottom: 1.8rem;
-            font-weight: 500;
-        }
+        .lock-screen p { color: #a55c6e; margin-bottom: 1.8rem; font-weight: 500; }
 
         .password-box {
             background: white;
@@ -109,7 +99,7 @@
             display: flex;
             align-items: center;
             border: 1px solid #f7bfcf;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
             margin-bottom: 1rem;
         }
 
@@ -124,10 +114,7 @@
             letter-spacing: 0.5px;
         }
 
-        .password-box input::placeholder {
-            color: #e2b1bf;
-            font-weight: 400;
-        }
+        .password-box input::placeholder { color: #e2b1bf; font-weight: 400; }
 
         .show-toggle {
             background: none;
@@ -136,11 +123,6 @@
             cursor: pointer;
             padding: 0.5rem;
             color: #d4748c;
-            transition: 0.2s;
-        }
-
-        .show-toggle:hover {
-            transform: scale(1.1);
         }
 
         button {
@@ -153,14 +135,13 @@
             color: white;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             width: 100%;
         }
 
         button:hover {
             transform: scale(0.97);
             background: linear-gradient(98deg, #c94b6d, #dc7a8c);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         }
 
         .error-msg {
@@ -171,7 +152,6 @@
             min-height: 2rem;
         }
 
-        /* CHAT SCREEN */
         .chat-screen {
             display: flex;
             flex-direction: column;
@@ -183,27 +163,20 @@
 
         .chat-header {
             background: #ffebf0;
-            padding: 1.2rem 1.8rem;
+            padding: 1rem 1.5rem;
             border-bottom: 2px solid #ffd0de;
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
-        .chat-header h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #b13e5c;
-            letter-spacing: -0.3px;
-        }
-
-        .chat-header h3 span {
-            font-size: 1.3rem;
-        }
+        .chat-header h3 { font-size: 1.3rem; font-weight: 600; color: #b13e5c; }
+        .chat-header h3 span { font-size: 1.2rem; }
 
         .logout-btn {
-            background: rgba(180, 70, 100, 0.2);
+            background: rgba(180,70,100,0.2);
             padding: 0.4rem 1rem;
             font-size: 0.8rem;
             font-weight: 600;
@@ -213,11 +186,7 @@
             border-radius: 40px;
         }
 
-        .logout-btn:hover {
-            background: #e2a1b5;
-            color: white;
-            transform: scale(0.96);
-        }
+        .logout-btn:hover { background: #e2a1b5; color: white; }
 
         .who-selector {
             background: #fff0f5;
@@ -225,11 +194,12 @@
             border-bottom: 1px solid #ffdae3;
             display: flex;
             align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
             gap: 0.8rem;
             font-size: 0.82rem;
             color: #a55c6e;
             font-weight: 600;
-            flex-wrap: wrap;
         }
 
         .who-selector label {
@@ -287,12 +257,11 @@
             line-height: 1.4;
             word-wrap: break-word;
             animation: fadeSlideUp 0.2s ease;
-            position: relative;
         }
 
         @keyframes fadeSlideUp {
-            from { opacity: 0; transform: translateY(8px);}
-            to { opacity: 1; transform: translateY(0);}
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .message.me {
@@ -309,7 +278,6 @@
             border: 1px solid #ffccd9;
             align-self: flex-start;
             border-bottom-left-radius: 0.5rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
         }
 
         .message small {
@@ -320,14 +288,8 @@
             letter-spacing: 0.3px;
         }
 
-        .me small {
-            text-align: right;
-            color: #ffe2ea;
-        }
-
-        .other small {
-            color: #b97b8b;
-        }
+        .me small { text-align: right; color: #ffe2ea; }
+        .other small { color: #b97b8b; }
 
         .input-panel {
             background: white;
@@ -347,7 +309,6 @@
             font-size: 0.95rem;
             outline: none;
             background: #fffbfd;
-            transition: 0.2s;
         }
 
         .input-panel input:focus {
@@ -362,24 +323,21 @@
         }
 
         .clear-chat {
-            background: rgba(228, 87, 123, 0.2);
+            background: rgba(228,87,123,0.2);
             color: #b83b5e;
             width: auto;
             padding: 0.5rem 1rem;
             font-size: 0.75rem;
         }
 
-        .footer-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
+        .footer-actions { display: flex; gap: 0.5rem; }
 
         @media (max-width: 520px) {
             .input-panel { flex-direction: column; align-items: stretch; }
             .input-panel button { width: 100%; }
             .footer-actions { flex-direction: column; }
             .message { max-width: 90%; }
-            .who-selector { justify-content: space-between; }
+            .who-selector { flex-direction: column; align-items: stretch; }
         }
     </style>
 </head>
@@ -388,16 +346,17 @@
 <div class="app-container" id="appRoot"></div>
 
 <script>
-    // ===== REAL-TIME ROMANTIC CHAT with LOCAL STORAGE + POLLING (no external dependencies) =====
-    // This creates a real-time experience using localStorage + storage events
-    // Messages sync across all tabs/windows in real-time!
+    // ===== REAL-TIME ROMANTIC CHAT with BroadcastChannel (Works across tabs!) =====
     
-    // ===== STORAGE KEYS =====
-    const STORAGE_KEY = "romantic_chat_messages_realtime";
+    // Storage keys
+    const STORAGE_KEY = "romantic_chat_messages";
     const PASSWORD_KEY = "romantic_vault_password";
     const DEFAULT_PASSWORD = "cherish2026";
     
-    // ===== LEAVES ANIMATION =====
+    // Broadcast channel for real-time sync across tabs
+    let broadcastChannel = null;
+    
+    // Leaves animation
     let leafInterval = null;
     const leafEmojis = ['🍂', '🍁', '🌸', '🌺', '💕', '💖', '🌹', '🍃', '✨', '💗'];
     
@@ -424,7 +383,7 @@
         leafInterval = setInterval(createLeaf, 1800);
     }
     
-    // ===== MESSAGE STORAGE =====
+    // Message storage
     function loadMessages() {
         const raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return [];
@@ -436,12 +395,10 @@
     
     function saveMessages(messages) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-        // Trigger storage event manually for same-tab listeners
-        window.dispatchEvent(new StorageEvent('storage', {
-            key: STORAGE_KEY,
-            newValue: JSON.stringify(messages),
-            oldValue: null
-        }));
+        // Broadcast to other tabs
+        if (broadcastChannel) {
+            broadcastChannel.postMessage({ type: 'UPDATE', timestamp: Date.now() });
+        }
     }
     
     function addMessage(text, sender) {
@@ -463,7 +420,7 @@
         saveMessages([]);
     }
     
-    // ===== PASSWORD SYSTEM =====
+    // Password system
     function getStoredPassword() {
         const pwd = localStorage.getItem(PASSWORD_KEY);
         if (pwd === null) {
@@ -492,30 +449,16 @@
             return false;
         }
         localStorage.setItem(PASSWORD_KEY, newPwd.trim());
-        alert("✨ New secret password saved! Next time use this key ✨");
+        alert("✨ New secret password saved!");
         return true;
     }
     
-    // ===== RENDER HELPERS =====
     function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
-    
-    function formatMessageTime(timestamp, timeStr) {
-        if (timeStr) return timeStr;
-        if (timestamp) {
-            return new Date(timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-        return new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]));
     }
     
     function msgHTML(msg) {
-        const timeDisplay = msg.timeStr || formatMessageTime(msg.timestamp);
+        const timeDisplay = msg.timeStr || new Date(msg.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         const isMe = msg.sender === 'me';
         return `<div class="message ${isMe ? 'me' : 'other'}">
             ${escapeHtml(msg.text)}
@@ -523,10 +466,10 @@
         </div>`;
     }
     
-    // ===== RENDER LOCK SCREEN (Beautiful Design - Fixed) =====
     const rootEl = document.getElementById("appRoot");
-    let storageListener = null;
+    let currentRefreshCallback = null;
     
+    // Lock Screen
     function renderLockScreen(errorMsg = "") {
         startLeaves();
         rootEl.innerHTML = `
@@ -540,7 +483,7 @@
                 </div>
                 <button id="unlockBtn">Unlock the heart ❤️</button>
                 <div class="error-msg" id="lockError">${errorMsg}</div>
-                <p style="margin-top: 1.2rem; font-size: 0.75rem; color:#bc8f9b;">💕 hint: cherish2026 (or your custom)</p>
+                <p style="margin-top: 1.2rem; font-size: 0.75rem; color:#bc8f9b;">💕 password: cherish2026</p>
             </div>
         `;
         
@@ -548,40 +491,45 @@
         const unlockBtn = document.getElementById("unlockBtn");
         const toggleBtn = document.getElementById("togglePwdView");
         
-        const showError = (msg) => {
-            const errDiv = document.getElementById("lockError");
-            if(errDiv) errDiv.innerText = msg;
-        };
-        
         const attemptUnlock = () => {
-            const val = pwdInput.value;
-            if (verifyPassword(val)) {
+            if (verifyPassword(pwdInput.value)) {
                 setSessionUnlocked(true);
                 renderChatScreen();
             } else {
-                showError("💔 Wrong password, my love. Try again or feel the romance...");
+                const errDiv = document.getElementById("lockError");
+                if (errDiv) errDiv.innerText = "💔 Wrong password, my love. Try again...";
                 pwdInput.value = "";
                 pwdInput.focus();
             }
         };
         
         unlockBtn.addEventListener("click", attemptUnlock);
-        pwdInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") attemptUnlock();
-        });
+        pwdInput.addEventListener("keypress", (e) => e.key === "Enter" && attemptUnlock());
         
-        let pwdVisible = false;
+        let visible = false;
         toggleBtn.addEventListener("click", () => {
-            pwdVisible = !pwdVisible;
-            pwdInput.type = pwdVisible ? "text" : "password";
-            toggleBtn.textContent = pwdVisible ? "🙈" : "👁️";
+            visible = !visible;
+            pwdInput.type = visible ? "text" : "password";
+            toggleBtn.textContent = visible ? "🙈" : "👁️";
         });
         pwdInput.focus();
     }
     
-    // ===== RENDER CHAT SCREEN (with REAL-TIME sync) =====
+    // Chat Screen with REAL-TIME BroadcastChannel
     function renderChatScreen() {
         startLeaves();
+        
+        // Setup broadcast channel for real-time sync
+        if (broadcastChannel) {
+            try { broadcastChannel.close(); } catch(e) {}
+        }
+        broadcastChannel = new BroadcastChannel('romantic_chat_sync');
+        broadcastChannel.onmessage = (event) => {
+            if (event.data.type === 'UPDATE') {
+                // Refresh messages when another tab updates
+                if (currentRefreshCallback) currentRefreshCallback();
+            }
+        };
         
         const savedWho = sessionStorage.getItem("romantic_who") || "me";
         
@@ -597,7 +545,7 @@
                 <div class="who-selector">
                     <div class="status-badge">
                         <span class="status-dot"></span>
-                        <span>✨ Real-time · Live</span>
+                        <span>✨ Real-time · Live Sync</span>
                     </div>
                     <div style="display: flex; gap: 1rem;">
                         <label><input type="radio" name="who" value="me" ${savedWho === 'me' ? 'checked' : ''}> 💗 Send as You</label>
@@ -615,7 +563,7 @@
                     </div>
                 </div>
                 <div style="font-size:0.7rem; text-align:center; padding:8px; background:#fff0f5; color:#b4687e;">
-                    💕 Real-time sync across all devices — every word blooms instantly.
+                    💕 Real-time across all devices/tabs — every word blooms instantly.
                 </div>
             </div>
         `;
@@ -627,17 +575,15 @@
         const logoutBtn = document.getElementById("logoutBtn");
         const changePwdBtn = document.getElementById("changePwdBtn");
         
-        // Save who am I on change
+        // Save who am I
         document.querySelectorAll('input[name="who"]').forEach(radio => {
             radio.addEventListener('change', (e) => {
-                if (e.target.checked) {
-                    sessionStorage.setItem("romantic_who", e.target.value);
-                }
+                if (e.target.checked) sessionStorage.setItem("romantic_who", e.target.value);
             });
         });
         
-        // Function to refresh messages display
-        const refreshMessagesDisplay = () => {
+        // Refresh display function
+        const refreshMessages = () => {
             const messages = loadMessages();
             if (!messagesContainer) return;
             
@@ -650,7 +596,10 @@
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         };
         
-        // Send message function
+        // Store callback for real-time updates
+        currentRefreshCallback = refreshMessages;
+        
+        // Send message
         const sendMessage = () => {
             const rawText = msgInput.value;
             if (!rawText.trim()) {
@@ -662,96 +611,67 @@
             const whoValue = document.querySelector('input[name="who"]:checked')?.value || "me";
             addMessage(rawText, whoValue);
             msgInput.value = "";
-            refreshMessagesDisplay();
+            refreshMessages();
             msgInput.focus();
         };
         
-        // Event listeners
         sendBtn.addEventListener("click", sendMessage);
-        msgInput.addEventListener("keypress", (e) => {
-            if (e.key === "Enter") sendMessage();
-        });
+        msgInput.addEventListener("keypress", (e) => e.key === "Enter" && sendMessage());
         
         clearBtn.addEventListener("click", () => {
-            if (confirm("💔 Clear ALL romantic messages? This cannot be undone. Love stays in hearts forever.")) {
+            if (confirm("💔 Clear ALL romantic messages? This cannot be undone.")) {
                 clearAllMessages();
-                refreshMessagesDisplay();
+                refreshMessages();
             }
         });
         
         logoutBtn.addEventListener("click", () => {
+            if (broadcastChannel) {
+                broadcastChannel.close();
+                broadcastChannel = null;
+            }
             setSessionUnlocked(false);
             renderLockScreen("");
         });
         
         changePwdBtn.addEventListener("click", () => {
-            let newPwd = prompt("💖 Set new secret password (min 4 characters):\n(Keep it romantic & memorable)");
+            let newPwd = prompt("💖 New password (min 4 chars):");
             if (newPwd && newPwd.trim().length >= 4) {
                 changePassword(newPwd.trim());
             } else if (newPwd !== null) {
-                alert("💔 Password must be at least 4 letters/digits. romantic essence matters.");
+                alert("💕 Password must be at least 4 characters.");
             }
         });
         
         // Initial load
-        refreshMessagesDisplay();
+        refreshMessages();
         
-        // ===== REAL-TIME SYNC using Storage Event (cross-tab/window) =====
-        // Remove previous listener if exists
-        if (storageListener) {
-            window.removeEventListener('storage', storageListener);
-        }
-        
-        storageListener = (e) => {
-            if (e.key === STORAGE_KEY) {
-                refreshMessagesDisplay();
+        // Polling fallback for older browsers (every 2 seconds as backup)
+        const pollingInterval = setInterval(() => {
+            if (messagesContainer && document.body.contains(messagesContainer)) {
+                refreshMessages();
+            } else {
+                clearInterval(pollingInterval);
             }
-        };
-        window.addEventListener('storage', storageListener);
+        }, 2000);
         
-        // Also poll for same-tab updates (since storage event doesn't fire in same tab)
-        // We'll use a small interval to check for changes in same tab
-        let lastMessageCount = loadMessages().length;
-        const syncInterval = setInterval(() => {
-            const currentCount = loadMessages().length;
-            if (currentCount !== lastMessageCount) {
-                lastMessageCount = currentCount;
-                refreshMessagesDisplay();
-            }
-        }, 500);
-        
-        // Store interval to clear later
-        window.currentSyncInterval = syncInterval;
-        
-        // Override logout to clear interval
-        const originalLogout = logoutBtn.onclick;
-        logoutBtn.onclick = () => {
-            clearInterval(syncInterval);
-            if (storageListener) window.removeEventListener('storage', storageListener);
-            setSessionUnlocked(false);
-            renderLockScreen("");
-        };
-        
-        // Store cleanup reference
-        window.cleanupRealtime = () => {
-            clearInterval(syncInterval);
-            if (storageListener) window.removeEventListener('storage', storageListener);
-        };
+        // Store interval for cleanup
+        window.currentPolling = pollingInterval;
     }
     
-    // ===== INITIALIZE APP =====
-    startLeaves();
+    // Cleanup on page unload
+    window.addEventListener('beforeunload', () => {
+        if (broadcastChannel) broadcastChannel.close();
+        if (window.currentPolling) clearInterval(window.currentPolling);
+    });
     
+    // Start app
+    startLeaves();
     if (isSessionUnlocked()) {
         renderChatScreen();
     } else {
         renderLockScreen("");
     }
-    
-    // Cleanup on page unload
-    window.addEventListener('beforeunload', () => {
-        if (window.cleanupRealtime) window.cleanupRealtime();
-    });
 </script>
 </body>
 </html>
